@@ -12,50 +12,59 @@ import categoryImg2 from "../../../assets/home/slide2.jpg";
 import categoryImg3 from "../../../assets/home/slide3.jpg";
 import categoryImg4 from "../../../assets/home/slide4.jpg";
 import categoryImg5 from "../../../assets/home/slide5.jpg";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 const Category = () => {
   return (
     <div>
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper my-6"
-      >
-        <SwiperSlide>
-          <img src={categoryImg1} alt="" />
-          <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
-            Salad
-          </h3>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={categoryImg2} alt="" />
-          <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
-            Salad
-          </h3>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={categoryImg3} alt="" />
-          <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
-            Salad
-          </h3>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={categoryImg4} alt="" />
-          <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
-            Salad
-          </h3>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={categoryImg5} alt="" />
-          <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
-            Salad
-          </h3>
-        </SwiperSlide>
-      </Swiper>
+      <section>
+        <SectionTitle
+          heading={"Order Online"}
+          subHeading={"10:00AM to 10:00PM"}
+        ></SectionTitle>
+      </section>
+      <section>
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={30}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper my-6"
+        >
+          <SwiperSlide>
+            <img src={categoryImg1} alt="" />
+            <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
+              Salad
+            </h3>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={categoryImg2} alt="" />
+            <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
+              Salad
+            </h3>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={categoryImg3} alt="" />
+            <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
+              Salad
+            </h3>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={categoryImg4} alt="" />
+            <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
+              Salad
+            </h3>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={categoryImg5} alt="" />
+            <h3 className="text-4xl uppercase shadow-xl text-center -mt-20 shadow-slate-300">
+              Salad
+            </h3>
+          </SwiperSlide>
+        </Swiper>
+      </section>
     </div>
   );
 };
