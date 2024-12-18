@@ -26,6 +26,11 @@ const PapularMenu = () => {
           <PopularMenuCard key={item._id} item={item}></PopularMenuCard>
         ))}
       </section>
+      <div className="flex items-center justify-center mt-8">
+        <button className="btn btn-outline border-0 border-b-4 uppercase mt-5 ">
+          view Full menu
+        </button>
+      </div>
     </div>
   );
 };
