@@ -14,7 +14,7 @@ const PapularMenu = () => {
   }, []);
 
   return (
-    <div className="my-10">
+    <div className="my-20">
       <section className="my-10">
         <SectionTitle
           heading={"From our menu"}
