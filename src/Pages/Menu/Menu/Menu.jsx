@@ -21,7 +21,7 @@ const Menu = () => {
       <Helmet>
         <title>BISTRO BOSS | MENU</title>
       </Helmet>
-      <div className="pt-16">
+      <div className="h-[600px]">
         <Cover
           img={menuCoverImg}
           cvHeading="our menu"
