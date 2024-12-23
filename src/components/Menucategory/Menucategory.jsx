@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { Link } from "react-router-dom";
 import Cover from "../Cover/Cover";
 import PopularMenuCard from "../PopularMenuCard/PopularMenuCard";
 import SectionTitle from "../SectionTitle/SectionTitle";
@@ -12,6 +13,7 @@ const Menucategory = ({
   img,
   cvHeading,
   description,
+  category,
 }) => {
   return (
     <div>
@@ -38,9 +40,11 @@ const Menucategory = ({
         </div>
 
         <div className="flex items-center justify-center mt-8">
-          <button className="btn btn-outline border-0 border-b-4 uppercase mt-5 ">
-            {buttonText}
-          </button>
+          <Link to={`/shop/${category}`}>
+            <button className="btn btn-outline border-0 border-b-4 uppercase mt-5 ">
+              {buttonText}
+            </button>
+          </Link>
         </div>
       </div>
     </div>

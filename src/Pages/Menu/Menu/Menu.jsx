@@ -42,6 +42,7 @@ const Menu = () => {
           "Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         }
         buttonText={"ORDER YOUR FAVOURITE DESSERT"}
+        category={"dessert"}
       />
       <Menucategory
         menu={pizzaMenu}
@@ -51,6 +52,7 @@ const Menu = () => {
           "Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         }
         buttonText={"ORDER YOUR FAVOURITE PIZZA"}
+        category={"pizza"}
       />
       <Menucategory
         menu={saladMenu}
@@ -60,6 +62,7 @@ const Menu = () => {
           "Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         }
         buttonText={"ORDER YOUR FAVOURITE SALAD"}
+        category={"salad"}
       />
       <Menucategory
         menu={soupMenu}
@@ -69,6 +72,7 @@ const Menu = () => {
           "Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         }
         buttonText={"ORDER YOUR FAVOURITE SOUP"}
+        category={"soup"}
       />
     </div>
   );

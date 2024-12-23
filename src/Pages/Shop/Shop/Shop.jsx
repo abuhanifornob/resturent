@@ -8,8 +8,14 @@ import { useState } from "react";
 import useMenu from "../../../hooks/useMenu";
 
 import ShopCard from "../../../components/ShopCard/ShopCard";
+import { useParams } from "react-router-dom";
 
 const Shop = () => {
+  const category = useParams();
+  const shopCategory = ["salad", "pizza", "soup", "dessert", "drinks"];
+  const intialTabIndex = shopCategory.indexOf(category);
+  console.log(intialTabIndex);
+
   const [tabIndex, setTabIndex] = useState(0);
   const [menu] = useMenu();
   const dessertMenu = menu.filter((item) => item.category === "dessert");
@@ -17,6 +23,7 @@ const Shop = () => {
   const pizzaMenu = menu.filter((item) => item.category === "pizza");
   const soupMenu = menu.filter((item) => item.category === "soup");
   const drinksMenu = menu.filter((item) => item.category === "drinks");
+
   return (
     <div>
       <Helmet>

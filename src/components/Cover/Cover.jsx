@@ -3,7 +3,7 @@
 const Cover = ({ img, cvHeading, description }) => {
   return (
     <div
-      className=" bg-fixed px-20 py-40 w-full h-full"
+      className=" bg-fixed px-20 py-40"
       style={{
         backgroundImage: `url(${img})`,
         backgroundPosition: "center",
