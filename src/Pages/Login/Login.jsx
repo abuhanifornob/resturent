@@ -1,18 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import loginImg from "../../assets/others/authentication.png";
 import autImgPng from "../../assets/others/authentication2.png";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
-  LoadCanvasTemplateNoReload,
   validateCaptcha,
 } from "react-simple-captcha";
 const Login = () => {
+  const captchaRef = useRef();
+  const [isValid, setIsValid] = useState(true);
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
 
-  const handleForm = (event) => {
+  const validateCapthca = () => {
+    const user_captcha_value = captchaRef.current.value;
+    if (validateCaptcha(user_captcha_value)) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  };
+  const HandleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
@@ -41,7 +50,7 @@ const Login = () => {
         </div>
         <div className="card w-full lg:w-1/2 shrink-0">
           <h3 className="text-3xl text-center font-bold -mb-4">Login</h3>
-          <form onSubmit={handleForm} className="card-body">
+          <form onSubmit={HandleLogin} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -49,7 +58,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="email"
-                name="password"
+                name="email"
                 className="input input-bordered"
                 required
               />
@@ -75,9 +84,28 @@ const Login = () => {
               <label className="label">
                 <LoadCanvasTemplate />
               </label>
+              <input
+                type="test"
+                name="captha"
+                ref={captchaRef}
+                placeholder="Type Capthca"
+                className="input input-bordered"
+                required
+              />
+              <label className="label">
+                <button onClick={validateCapthca} className="btn btn-sm w-full">
+                  Check Captha Validation
+                </button>
+              </label>
             </div>
-            <div className="form-control mt-6">
-              <input className="btn btn-primary" type="submit" value="Login" />
+
+            <div className="form-control mt-4">
+              <input
+                disabled={isValid}
+                className="btn btn-primary"
+                type="submit"
+                value="Login"
+              />
             </div>
           </form>
         </div>
