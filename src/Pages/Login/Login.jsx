@@ -1,23 +1,27 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import loginImg from "../../assets/others/authentication.png";
 import autImgPng from "../../assets/others/authentication2.png";
+import Swal from "sweetalert2";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const Login = () => {
-  const { login, logout } = useContext(AuthContext);
-  const captchaRef = useRef();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const { login } = useContext(AuthContext);
+
   const [isValid, setIsValid] = useState(true);
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
 
-  const validateCapthca = () => {
-    const user_captcha_value = captchaRef.current.value;
+  const validateCapthca = (e) => {
+    const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
       setIsValid(false);
     } else {
@@ -32,8 +36,15 @@ const Login = () => {
     login(email, password).then((result) => {
       const user = result.user;
       console.log(user);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Login  Successfully !!!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate(from, { replace: true });
     });
-    console.log(email, password);
   };
   return (
     <div
@@ -92,18 +103,13 @@ const Login = () => {
                 <LoadCanvasTemplate />
               </label>
               <input
+                onBlur={validateCapthca}
                 type="test"
                 name="captha"
-                ref={captchaRef}
                 placeholder="Type Capthca"
                 className="input input-bordered"
                 required
               />
-              <label className="label">
-                <button onClick={validateCapthca} className="btn btn-sm w-full">
-                  Check Captha Validation
-                </button>
-              </label>
             </div>
 
             <div className="form-control mt-4">
