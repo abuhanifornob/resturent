@@ -5,9 +5,11 @@ import Navbar from "../Pages/Navbar/Navbar";
 
 const Main = () => {
   const loginLocation = useLocation();
-  console.log(loginLocation);
-  const isLogin = loginLocation.pathname.includes("/login");
-  console.log(isLogin);
+
+  const isLogin =
+    loginLocation.pathname.includes("/login") ||
+    loginLocation.pathname.includes("/signUp");
+
   return (
     <div>
       {isLogin || <Navbar />}
