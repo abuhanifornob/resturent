@@ -2,23 +2,39 @@ import { useContext } from "react";
 import loginImg from "../../assets/others/authentication.png";
 import autImgPng from "../../assets/others/authentication2.png";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 const SignUp = () => {
-  const { signUp } = useContext(AuthContext);
+  const { signUp, userProfileUpdate } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const handleSignUp = (data) => {
-    signUp(data.email, data.password).then((result) => {
-      const user = result.user;
-      console.log(user);
-      reset();
-    });
+    signUp(data.email, data.password)
+      .then((result) => {
+        userProfileUpdate(data.name, data.photo)
+          .then(() => {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "User Create Successfully !!!",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            reset();
+            navigate("/");
+          })
+          .catch((error) => console.log(error));
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.log(error));
   };
   return (
     <div
@@ -49,11 +65,26 @@ const SignUp = () => {
               </label>
               <input
                 {...register("name")}
-                type="name"
+                type="text"
                 placeholder="Type Hear"
                 name="name"
                 className="input input-bordered"
               />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Phot URL</span>
+              </label>
+              <input
+                {...register("photo")}
+                type="text"
+                placeholder="Type Hear"
+                name="name"
+                className="input input-bordered"
+              />
+              {errors.photo && (
+                <span className="text-red-600">Photo is required</span>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
