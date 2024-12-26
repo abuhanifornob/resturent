@@ -1,9 +1,36 @@
+import Swal from "sweetalert2";
+import useAxiiousSecret from "../../../hooks/useAxiiousSecret";
 import useCart from "../../../hooks/uuseCart";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 const Cart = () => {
-  const [orderCart] = useCart();
+  const [orderCart, refetch] = useCart();
   const totalPrice = orderCart.reduce((total, item) => total + item.price, 0);
+  const axiosSecure = useAxiiousSecret();
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/cart/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
   return (
     <div className="">
       <div className="flex justify-between">
@@ -49,7 +76,10 @@ const Cart = () => {
                 <td className="">{item.name}</td>
                 <td>${item.price}</td>
                 <th>
-                  <button className="btn bg-red-600 text-white text-2xl">
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="btn bg-red-600 text-white text-2xl"
+                  >
                     <RiDeleteBin5Line />
                   </button>
                 </th>
