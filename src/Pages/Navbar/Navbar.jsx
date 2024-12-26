@@ -38,7 +38,7 @@ const Navbar = () => {
       </li>
 
       <li>
-        <Link to="/">
+        <Link to="/dashboard/cart">
           {
             <button className="btn btn-ghost -mt-3">
               <LuShoppingCart className="" />
