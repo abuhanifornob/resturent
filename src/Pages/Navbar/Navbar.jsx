@@ -2,8 +2,11 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import { LuShoppingCart } from "react-icons/lu";
+import useCart from "../../hooks/uuseCart";
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const [orderCart] = useCart();
 
   const handleLogout = () => {
     logout()
@@ -32,6 +35,17 @@ const Navbar = () => {
       </li>
       <li>
         <Link to="/contact">Contact</Link>
+      </li>
+
+      <li>
+        <Link to="/">
+          {
+            <button className="btn btn-ghost -mt-3">
+              <LuShoppingCart className="" />
+              <div className="badge badge-secondary">+{orderCart.length}</div>
+            </button>
+          }
+        </Link>
       </li>
 
       {user ? (

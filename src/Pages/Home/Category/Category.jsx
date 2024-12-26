@@ -65,9 +65,6 @@ const Category = () => {
           </SwiperSlide>
         </Swiper>
       </section>
-      <button className="btn btn-outline border-0 border-b-4 uppercase text-white mt-5">
-        view Full menu
-      </button>
     </div>
   );
 };
