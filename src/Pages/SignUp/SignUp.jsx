@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 const SignUp = () => {
   const { signUp, userProfileUpdate } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
@@ -159,6 +160,9 @@ const SignUp = () => {
               <span className="font-bold">Or Sign In With</span>
             </Link>
           </p>
+          <div className="px-16 text-2xl mt-2">
+            <SocialLogin></SocialLogin>
+          </div>
         </div>
       </div>
     </div>

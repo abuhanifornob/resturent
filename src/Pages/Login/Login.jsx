@@ -9,6 +9,7 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -132,6 +133,9 @@ const Login = () => {
               <span className="font-bold">Or Sign In With</span>
             </Link>
           </p>
+          <div className="px-16 text-2xl mt-2">
+            <SocialLogin />
+          </div>
         </div>
       </div>
     </div>
