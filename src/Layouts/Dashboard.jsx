@@ -14,9 +14,12 @@ import {
 } from "react-icons/fa";
 import { MdContactMail } from "react-icons/md";
 import { IoMdMenu } from "react-icons/io";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-  const isAdmin = true;
+  const isAdmin = useAdmin();
+  // const Admin = useAdmin();
+  // console.log(Admin);
   return (
     <div className="flex">
       <div className="w-72 min-h-screen bg-orange-400 p-10">
