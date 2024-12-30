@@ -17,7 +17,7 @@ import { IoMdMenu } from "react-icons/io";
 import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-  const isAdmin = useAdmin();
+  const [isAdmin] = useAdmin();
   // const Admin = useAdmin();
   // console.log(Admin);
   return (
