@@ -39,7 +39,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li className="text-xl mb-4">
-                <NavLink to={"/dashboard/adminHome"}>
+                <NavLink to={"/dashboard/addItem"}>
                   {" "}
                   <div className="flex justify-start items-center gap-4 hover:text-white">
                     <FaUtensils className="text-3xl" />
