@@ -68,7 +68,7 @@ const AllUsers = () => {
       <div className="flex justify-between">
         <h2 className="uppercase text-4xl">Total Users:{users.length} </h2>
       </div>
-      <div className="overflow-x-auto mt-10">
+      <div className="overflow-x-auto mt-10 w-full">
         <table className="table">
           {/* head */}
           <thead className="bg-orange-400 rounded-t-2xl">
