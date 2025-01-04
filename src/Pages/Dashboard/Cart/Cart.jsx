@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useAxiiousSecret from "../../../hooks/useAxiiousSecret";
 import useCart from "../../../hooks/uuseCart";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [orderCart, refetch] = useCart();
@@ -38,9 +39,20 @@ const Cart = () => {
         <h2 className="uppercase text-4xl">
           Total price:${totalPrice.toFixed(2)}
         </h2>
-        <button className=" btn bg-orange-400 uppercase px-6 py-4 text-white ">
-          pay
-        </button>
+        {orderCart.length ? (
+          <Link to={"/dashboard/payment"}>
+            <button className=" btn bg-orange-400 uppercase px-6 py-4 text-white ">
+              pay
+            </button>
+          </Link>
+        ) : (
+          <button
+            disabled
+            className=" btn bg-orange-400 uppercase px-6 py-4 text-white "
+          >
+            pay
+          </button>
+        )}
       </div>
       <div className="overflow-x-auto mt-10">
         <table className="table">
