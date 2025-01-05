@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import useAxiiousSecret from "../../../hooks/useAxiiousSecret";
 import useCart from "../../../hooks/uuseCart";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -11,16 +12,18 @@ const CheckoutForm = () => {
   const [paymentConfirmStatus, setPaymentconfirmStatus] = useState("");
   const [paymentError, setPaymentError] = useState("");
   const { user } = useContext(AuthContext);
-  const [orderCart] = useCart();
+  const [orderCart, refetch] = useCart();
   const price = orderCart.reduce((total, item) => total + item.price, 0);
   console.log("Total Price", price);
 
   const [clientSecret, setClientSecret] = useState("");
   useEffect(() => {
-    axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-      console.log(res.data.clientSecret);
-      setClientSecret(res.data.clientSecret);
-    });
+    if (price > 0) {
+      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
+        console.log(res.data.clientSecret);
+        setClientSecret(res.data.clientSecret);
+      });
+    }
   }, [axiosSecure, price]);
   const handleSubmit = async (event) => {
     // Block native form submission.
@@ -63,6 +66,31 @@ const CheckoutForm = () => {
       console.log("[Payment Intent]", paymentIntent);
       if (paymentIntent?.status === "succeeded") {
         setPaymentconfirmStatus(paymentIntent);
+
+        //Payment History
+        const payment = {
+          email: user?.email,
+          price: price,
+          name: user?.displayName || "Unknown",
+          transactionId: paymentIntent.id,
+          cardIds: orderCart.map((item) => item._id),
+          menuIds: orderCart.map((item) => item.menuId),
+          date: new Date(),
+          status: "pending",
+        };
+
+        const res = await axiosSecure.post("/payments", payment);
+        console.log(res.data);
+        if (res.data?.insertedId) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Payment Success !!!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       }
     }
   };

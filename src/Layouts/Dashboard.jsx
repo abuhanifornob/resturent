@@ -16,9 +16,11 @@ import { MdContactMail } from "react-icons/md";
 import { IoMdMenu } from "react-icons/io";
 import useAdmin from "../hooks/useAdmin";
 
+import useCart from "../hooks/uuseCart";
+
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
-  // const Admin = useAdmin();
+  const [orderCart] = useCart();
   // console.log(Admin);
   return (
     <div className="flex">
@@ -96,7 +98,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li className="text-xl mb-4">
-                <NavLink to={"/dashboard/payment"}>
+                <NavLink to={"/dashboard/paymentHistory"}>
                   {" "}
                   <div className="flex justify-start items-center gap-4 hover:text-white">
                     <MdOutlinePayments className="text-3xl" />
@@ -109,7 +111,8 @@ const Dashboard = () => {
                   {" "}
                   <div className="flex justify-start items-center gap-4 hover:text-white">
                     <FaCartPlus className="text-3xl" />
-                    MY CART
+                    MY CART{" "}
+                    <span className="text-white">( {orderCart.length} )</span>
                   </div>
                 </NavLink>
               </li>
