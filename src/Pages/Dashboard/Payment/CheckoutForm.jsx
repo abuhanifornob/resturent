@@ -1,12 +1,16 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useAxiiousSecret from "../../../hooks/useAxiiousSecret";
 import useCart from "../../../hooks/uuseCart";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiiousSecret();
+  const [paymentConfirmStatus, setPaymentconfirmStatus] = useState("");
+  const [paymentError, setPaymentError] = useState("");
+  const { user } = useContext(AuthContext);
   const [orderCart] = useCart();
   const price = orderCart.reduce((total, item) => total + item.price, 0);
   console.log("Total Price", price);
@@ -36,8 +40,30 @@ const CheckoutForm = () => {
 
     if (error) {
       console.log("[Strype Payment error]:", error);
+      setPaymentError(error.message);
     } else {
       console.log("[PaymentMethod]", paymentMethod);
+      setPaymentError("");
+    }
+
+    // payment Conferm
+    const { paymentIntent, error: paymentConfirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName || "Unknown",
+            email: user?.email || "Unknown",
+          },
+        },
+      });
+    if (paymentConfirmError) {
+      console.log("[Strype Payment Confirm Error]:", error);
+    } else {
+      console.log("[Payment Intent]", paymentIntent);
+      if (paymentIntent?.status === "succeeded") {
+        setPaymentconfirmStatus(paymentIntent);
+      }
     }
   };
 
@@ -60,10 +86,20 @@ const CheckoutForm = () => {
             },
           }}
         />
-        <button type="submit" disabled={!stripe || clientSecret}>
+        <button
+          className="mt-12 btn btn-success text-2xl"
+          type="submit"
+          disabled={!stripe || !clientSecret}
+        >
           Pay
         </button>
       </form>
+      {paymentConfirmStatus && (
+        <div>
+          <p className="text-green-400 text-2xl">{paymentConfirmStatus.id}</p>
+        </div>
+      )}
+      {paymentError && <p className="text-red-600 text-2xl">{paymentError}</p>}
     </div>
   );
 };
