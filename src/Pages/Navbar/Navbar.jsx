@@ -4,9 +4,11 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { LuShoppingCart } from "react-icons/lu";
 import useCart from "../../hooks/uuseCart";
+import useAdmin from "../../hooks/useAdmin";
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [orderCart] = useCart();
+  const [isadmin] = useAdmin();
 
   const handleLogout = () => {
     logout()
@@ -36,6 +38,17 @@ const Navbar = () => {
       <li>
         <Link to="/contact">Contact</Link>
       </li>
+
+      {user && isadmin && (
+        <li>
+          <Link to="/dashboard/userHome">Dashboard</Link>
+        </li>
+      )}
+      {user && !isadmin && (
+        <li>
+          <Link to="/dashboard/userHome">Dashboard</Link>
+        </li>
+      )}
 
       <li>
         <Link to="/dashboard/cart">
